@@ -14,7 +14,7 @@ if choice == "1":
 elif choice == "2":
     fahrenheit = float(input("Insert the amount of Fahrenheit: "))
     celsius = (fahrenheit - 32) / 1.8
-    print(f"{fahrenheit:.1f} °F equals to {celsius:.1f} °\n")
+    print(f"{fahrenheit:.1f} °F equals to {celsius:.1f} °C\n")
 elif choice == "0":
     print("Exiting...")
 else:
