@@ -1,0 +1,48 @@
+#print() #funktiokutsu
+#print("Hello") #Hello on funktion parametri
+#len()  # len() on Pythonin sisäänrakennettu funktio, joka kertoo jonkin asian pituuden — eli kuinka monta alkioita tai merkkiä siinä on.
+
+#while True:
+#   print("I can do this forever.")
+
+#def greet(name):
+#   print(f"Hello {name}")
+
+#print("Here I am")
+#name = Jimi
+#greet(name)
+
+#def greet(name):
+#   return f"Hello, {name}"
+
+#print(greet("Jimi"))
+
+#def greeting_airport(person, age):
+#   print(f"How do you do {person}")
+#   if age >=18:
+#   print("Welcome to your flight")
+#   else:
+#   print(f"You need to wait for {18-age} years to flight solo.")
+
+#   greeting_airport("Jimi", 22)
+
+# .upper() muuttaa isoihin kirjaimiin, .lower() muuttaa pieniin kirjaimiin.
+
+# Functions example 1:
+
+def initialize():
+    print("Initializing resources...")
+
+def process_data(data):
+    return data.upper()
+
+def save_results(results):
+    print(f"Saving results: {results}")
+
+def main():
+    initialize()
+    data = "sample data"
+    processed_data = process_data(data)
+    save_results(processed_data)
+
+main()
