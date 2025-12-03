@@ -1,24 +1,11 @@
-#!/usr/bin/env python3
-"""
-Simple Enigma-like machine (no plugboard wiring implemented).
-- 3 rotors, each 26 letters (A-Z)
-- 1 reflector (user can pick A/B/C)
-- Plugboard prompt present but skipped (no swaps)
-- Rotor stepping: rightmost rotor advances by 1 for every keypress
-- Before each input row, rotor positions are reset to [0,0,0]
-- Empty input line quits the program
-"""
-
 ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-# Common historic rotor wirings (example set)
 ROTOR_I   = "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
 ROTOR_II  = "AJDKSIRUXBLHWTMCQGZNPYFVOE"
 ROTOR_III = "BDFHJLCPRTXVZNYEIWGAKMUSQO"
 ROTOR_IV  = "ESOVPZJAYQUIRHXLNFTGKDCMWB"
 ROTOR_V   = "VZBRGITYUPSDNHLXAWMJQOFECK"
 
-# Reflectors (A, B, C)
 REFLECTOR_A = "EJMZALYXVBWFCRQUONTSPIKHGD"
 REFLECTOR_B = "YRUHQSLDPXNGOKMIEBFZCWVJAT"
 REFLECTOR_C = "FVPJIAOYEDRZXWGCTKUQSBNMHL"
@@ -39,7 +26,7 @@ def letter(i: int) -> str:
 class Enigma:
     def __init__(self, rotors:list[str], reflector:str, start_positions=None):
         assert len(rotors) == 3, "Three rotors required"
-        self.rotors = rotors[:]               # list: [rotor1 (left), rotor2 (mid), rotor3 (right)]
+        self.rotors = rotors[:]              
         self.inv_rotors = [make_inverse_wiring(r) for r in self.rotors]
         self.reflector = reflector
         self.positions = start_positions[:] if start_positions else [0,0,0]
@@ -50,9 +37,7 @@ class Enigma:
     def step_rotors(self):
         """Simple stepping: rightmost rotor advances by 1 each keypress (mod 26)."""
         self.positions[2] = (self.positions[2] + 1) % 26
-        # NOTE: This simple model does not implement double-step turnover mechanism.
-        # It satisfies the exercise requirements.
-
+       
     def forward_through_rotor(self, rotor_idx:int, ch:str) -> str:
         """
         Forward direction substitution through one rotor.
@@ -82,16 +67,13 @@ class Enigma:
     def encrypt_char(self, ch:str) -> str:
         """Encrypt single uppercase letter. Rotors step BEFORE encryption."""
         self.step_rotors()
-
-        # Forward pass: per common implementations the signal enters rightmost rotor first.
+        
         c = ch
         for rotor_idx in (2, 1, 0):
             c = self.forward_through_rotor(rotor_idx, c)
 
-        # Reflect
         c = self.reflect(c)
-
-        # Reverse pass: back through rotors left-to-right (0..2)
+       
         for rotor_idx in (0, 1, 2):
             c = self.reverse_through_rotor(rotor_idx, c)
 
@@ -134,9 +116,9 @@ def demo():
     else:
         print("No extra plugs inserted.")
 
-    # For demo, use the rotors from the problem statement
+  
     rotors = [ROTOR_I, ROTOR_II, ROTOR_III]
-    # Ask user which reflector to use (A/B/C)
+    
     refl_choice = input("Choose reflector (A/B/C) [B]: ").strip().upper() or 'B'
     try:
         reflector = choose_reflector(refl_choice)
@@ -153,7 +135,7 @@ def demo():
             print("\nEnigma closing.")
             break
         converted, log = enigma.encrypt_row(row)
-        # Print per-character illumination similar to prompt
+
         for inp, out, pos in log:
             if inp.upper() in ALPHABET:
                 print(f'Character "{inp}" illuminated as "{out}"')
@@ -163,3 +145,4 @@ def demo():
 
 if __name__ == "__main__":
     demo()
+
