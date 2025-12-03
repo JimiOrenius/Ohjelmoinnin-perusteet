@@ -108,7 +108,7 @@ def choose_reflector(code:str) -> str:
         return REFLECTOR_C
     raise ValueError("Unknown reflector code. Choose A, B or C.")
 
-def demo():
+def main():
     print("Insert config(filename): (demo uses built-in config)")
     plugs = input("Insert plugs (y/n)?: ").strip().lower()
     if plugs == 'y':
@@ -144,5 +144,4 @@ def demo():
         print(f'Converted row - "{converted}".\n')
 
 if __name__ == "__main__":
-    demo()
-
+    main()
